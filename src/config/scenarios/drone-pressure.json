@@ -1,0 +1,291 @@
+{
+  "metadata": {
+    "scenarioName": "Drone Pressure",
+    "classification": "PUBLIC_SYNTHETIC",
+    "version": "0.1",
+    "description": "Guided first mission. Cheap drones arrive from several directions \u2014 learn the chain step by step: see, decide, act, and absorb.",
+    "learningFocus": "Small threats can still overwhelm a defence if there are enough of them.",
+    "difficulty": "Tutorial"
+  },
+  "budget": {
+    "budget": 26,
+    "workforce": 14,
+    "integration": 10,
+    "munitions": 12
+  },
+  "map": {
+    "nodes": [
+      {
+        "id": "north_coast",
+        "name": "North Coast",
+        "x": 250,
+        "y": 90
+      },
+      {
+        "id": "western_approaches",
+        "name": "Western Approaches",
+        "x": 110,
+        "y": 230
+      },
+      {
+        "id": "central_hub",
+        "name": "Central Hub",
+        "x": 300,
+        "y": 280
+      },
+      {
+        "id": "eastern_corridor",
+        "name": "Eastern Corridor",
+        "x": 470,
+        "y": 210
+      },
+      {
+        "id": "south_east_hub",
+        "name": "South-East Hub",
+        "x": 420,
+        "y": 400
+      },
+      {
+        "id": "maritime_gate",
+        "name": "Maritime Gate",
+        "x": 170,
+        "y": 410
+      }
+    ],
+    "links": [
+      [
+        "north_coast",
+        "central_hub"
+      ],
+      [
+        "western_approaches",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "south_east_hub"
+      ],
+      [
+        "maritime_gate",
+        "central_hub"
+      ],
+      [
+        "central_hub",
+        "south_east_hub"
+      ]
+    ]
+  },
+  "defendedAssets": [
+    {
+      "id": "northport_energy",
+      "name": "Northport Energy Hub",
+      "nodeId": "north_coast",
+      "operationalValue": 4,
+      "publicConsequence": 5,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 4
+    },
+    {
+      "id": "southgate_civil",
+      "name": "Southgate Civil Hub",
+      "nodeId": "south_east_hub",
+      "operationalValue": 3,
+      "publicConsequence": 5,
+      "baselineResilience": 1,
+      "recoveryDifficulty": 3
+    },
+    {
+      "id": "central_command",
+      "name": "Central Command Node",
+      "nodeId": "central_hub",
+      "operationalValue": 5,
+      "publicConsequence": 4,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 5
+    }
+  ],
+  "availableDefenceAssets": [
+    "long_range_sensor",
+    "local_sensor",
+    "passive_sensor",
+    "c2_node",
+    "integration_upgrade",
+    "surface_defence",
+    "counter_uas",
+    "electronic_warfare",
+    "passive_resilience",
+    "sustainment"
+  ],
+  "threatWaves": [
+    {
+      "id": "wave_1",
+      "name": "Initial drone pressure",
+      "threats": [
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "south_east_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "small_uas",
+          "route": [
+            "north_coast"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 2,
+          "saturationWeight": 1
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        }
+      ]
+    },
+    {
+      "id": "wave_2",
+      "name": "Sustained saturation",
+      "threats": [
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "south_east_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "north_coast"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "decoy",
+          "route": [
+            "western_approaches",
+            "central_hub"
+          ],
+          "detectability": 4,
+          "classificationDifficulty": 4,
+          "speedClass": 2,
+          "consequence": 0,
+          "saturationWeight": 2
+        }
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "dp_total",
+      "label": "Keep total damage under 10",
+      "kind": "total_consequence_below",
+      "value": 10
+    },
+    {
+      "id": "dp_central",
+      "label": "Keep the Central Command Node under 4 damage",
+      "kind": "protect_asset_below",
+      "value": 4,
+      "assetId": "central_command"
+    },
+    {
+      "id": "dp_mun",
+      "label": "Finish with munitions to spare",
+      "kind": "munitions_remaining_above",
+      "value": 0.15
+    }
+  ],
+  "tutorial": [
+    {
+      "id": "t1",
+      "text": "Welcome. Your job is to keep priority sites working through the attack \u2014 not to shoot down every dot. Let's build the chain step by step.",
+      "freeform": true
+    },
+    {
+      "id": "t2",
+      "text": "First: SEE the threat. Place a Local sensor on a node near a starred site. Sensors give warning; they don't stop anything by themselves.",
+      "requireAssetType": "local_sensor"
+    },
+    {
+      "id": "t3",
+      "text": "Now: DECIDE. Place a C2 node. This turns a track into a decision \u2014 without it, you can see a threat and still react too late.",
+      "requireAssetType": "c2_node"
+    },
+    {
+      "id": "t4",
+      "text": "Now: ACT. Place a Counter-UAS unit near a starred site. It's cheap and efficient against drones \u2014 the threat in this scenario.",
+      "requireAssetType": "counter_uas"
+    },
+    {
+      "id": "t5",
+      "text": "Finally: ABSORB. Place a Passive resilience package on a starred site. It reduces damage when something leaks through. Then press Run.",
+      "requireAssetType": "passive_resilience"
+    }
+  ]
+}

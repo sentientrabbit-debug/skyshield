@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "scenarioName": "Cruise-Type Warning",
+    "classification": "PUBLIC_SYNTHETIC",
+    "version": "0.1",
+    "description": "Low-flying, faster threats give you less warning. You need sensors, decision capacity and suitable effectors in the right places.",
+    "learningFocus": "Seeing a threat is useful only if you can decide and act in time.",
+    "difficulty": "Moderate"
+  },
+  "budget": {
+    "budget": 30,
+    "workforce": 16,
+    "integration": 12,
+    "munitions": 12
+  },
+  "map": {
+    "nodes": [
+      {
+        "id": "north_coast",
+        "name": "North Coast",
+        "x": 250,
+        "y": 80
+      },
+      {
+        "id": "western_approaches",
+        "name": "Western Approaches",
+        "x": 100,
+        "y": 220
+      },
+      {
+        "id": "central_hub",
+        "name": "Central Hub",
+        "x": 300,
+        "y": 270
+      },
+      {
+        "id": "eastern_corridor",
+        "name": "Eastern Corridor",
+        "x": 480,
+        "y": 190
+      },
+      {
+        "id": "northern_energy",
+        "name": "Northern Energy Zone",
+        "x": 360,
+        "y": 130
+      },
+      {
+        "id": "maritime_gate",
+        "name": "Maritime Gate",
+        "x": 160,
+        "y": 400
+      },
+      {
+        "id": "south_east_hub",
+        "name": "South-East Hub",
+        "x": 430,
+        "y": 400
+      }
+    ],
+    "links": [
+      [
+        "western_approaches",
+        "central_hub"
+      ],
+      [
+        "maritime_gate",
+        "central_hub"
+      ],
+      [
+        "north_coast",
+        "northern_energy"
+      ],
+      [
+        "northern_energy",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "south_east_hub"
+      ],
+      [
+        "central_hub",
+        "south_east_hub"
+      ]
+    ]
+  },
+  "defendedAssets": [
+    {
+      "id": "northport_energy",
+      "name": "Northport Energy Hub",
+      "nodeId": "northern_energy",
+      "operationalValue": 5,
+      "publicConsequence": 5,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 5
+    },
+    {
+      "id": "eastwatch_air",
+      "name": "Eastwatch Air Station",
+      "nodeId": "eastern_corridor",
+      "operationalValue": 4,
+      "publicConsequence": 3,
+      "baselineResilience": 3,
+      "recoveryDifficulty": 3
+    },
+    {
+      "id": "western_logistics",
+      "name": "Western Logistics Port",
+      "nodeId": "maritime_gate",
+      "operationalValue": 4,
+      "publicConsequence": 4,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 4
+    }
+  ],
+  "availableDefenceAssets": [
+    "long_range_sensor",
+    "local_sensor",
+    "passive_sensor",
+    "c2_node",
+    "integration_upgrade",
+    "surface_defence",
+    "counter_uas",
+    "electronic_warfare",
+    "passive_resilience",
+    "sustainment"
+  ],
+  "threatWaves": [
+    {
+      "id": "wave_1",
+      "name": "Probing approach",
+      "threats": [
+        {
+          "type": "cruise_type",
+          "route": [
+            "western_approaches",
+            "central_hub"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 5,
+          "saturationWeight": 2
+        },
+        {
+          "type": "unknown",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 4,
+          "classificationDifficulty": 5,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "decoy",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 4,
+          "speedClass": 2,
+          "consequence": 0,
+          "saturationWeight": 2
+        }
+      ]
+    },
+    {
+      "id": "wave_2",
+      "name": "Low-altitude run",
+      "threats": [
+        {
+          "type": "cruise_type",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 5,
+          "saturationWeight": 2
+        },
+        {
+          "type": "cruise_type",
+          "route": [
+            "north_coast",
+            "northern_energy"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 6,
+          "saturationWeight": 2
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "eastern_corridor",
+            "south_east_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 1
+        },
+        {
+          "type": "unknown",
+          "route": [
+            "western_approaches",
+            "central_hub"
+          ],
+          "detectability": 4,
+          "classificationDifficulty": 5,
+          "speedClass": 2,
+          "consequence": 4,
+          "saturationWeight": 2
+        }
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "cw_total",
+      "label": "Keep total damage under 14",
+      "kind": "total_consequence_below",
+      "value": 14
+    },
+    {
+      "id": "cw_energy",
+      "label": "Keep Northport Energy Hub under 5 damage",
+      "kind": "protect_asset_below",
+      "value": 5,
+      "assetId": "northport_energy"
+    },
+    {
+      "id": "cw_detect",
+      "label": "Detect at least 70% of incoming tracks",
+      "kind": "detection_rate_above",
+      "value": 0.7
+    }
+  ]
+}

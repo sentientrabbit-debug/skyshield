@@ -1,0 +1,342 @@
+{
+  "metadata": {
+    "scenarioName": "Mixed Salvo",
+    "classification": "PUBLIC_SYNTHETIC",
+    "version": "0.1",
+    "description": "Drones, decoys and cruise-type threats arrive together. You must protect priority sites without wasting scarce munitions.",
+    "learningFocus": "Integration and prioritisation matter when the system is saturated.",
+    "difficulty": "Demanding"
+  },
+  "budget": {
+    "budget": 34,
+    "workforce": 18,
+    "integration": 14,
+    "munitions": 14
+  },
+  "map": {
+    "nodes": [
+      {
+        "id": "north_coast",
+        "name": "North Coast",
+        "x": 250,
+        "y": 70
+      },
+      {
+        "id": "western_approaches",
+        "name": "Western Approaches",
+        "x": 90,
+        "y": 210
+      },
+      {
+        "id": "central_hub",
+        "name": "Central Hub",
+        "x": 300,
+        "y": 260
+      },
+      {
+        "id": "eastern_corridor",
+        "name": "Eastern Corridor",
+        "x": 490,
+        "y": 180
+      },
+      {
+        "id": "northern_energy",
+        "name": "Northern Energy Zone",
+        "x": 370,
+        "y": 120
+      },
+      {
+        "id": "maritime_gate",
+        "name": "Maritime Gate",
+        "x": 150,
+        "y": 390
+      },
+      {
+        "id": "south_east_hub",
+        "name": "South-East Hub",
+        "x": 440,
+        "y": 390
+      }
+    ],
+    "links": [
+      [
+        "western_approaches",
+        "central_hub"
+      ],
+      [
+        "maritime_gate",
+        "central_hub"
+      ],
+      [
+        "maritime_gate",
+        "western_approaches"
+      ],
+      [
+        "north_coast",
+        "northern_energy"
+      ],
+      [
+        "northern_energy",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "central_hub"
+      ],
+      [
+        "eastern_corridor",
+        "south_east_hub"
+      ],
+      [
+        "central_hub",
+        "south_east_hub"
+      ]
+    ]
+  },
+  "defendedAssets": [
+    {
+      "id": "northport_energy",
+      "name": "Northport Energy Hub",
+      "nodeId": "northern_energy",
+      "operationalValue": 5,
+      "publicConsequence": 5,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 5
+    },
+    {
+      "id": "eastwatch_air",
+      "name": "Eastwatch Air Station",
+      "nodeId": "eastern_corridor",
+      "operationalValue": 4,
+      "publicConsequence": 3,
+      "baselineResilience": 3,
+      "recoveryDifficulty": 3
+    },
+    {
+      "id": "central_command",
+      "name": "Central Command Node",
+      "nodeId": "central_hub",
+      "operationalValue": 6,
+      "publicConsequence": 4,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 6
+    },
+    {
+      "id": "western_logistics",
+      "name": "Western Logistics Port",
+      "nodeId": "maritime_gate",
+      "operationalValue": 4,
+      "publicConsequence": 4,
+      "baselineResilience": 2,
+      "recoveryDifficulty": 4
+    }
+  ],
+  "availableDefenceAssets": [
+    "long_range_sensor",
+    "local_sensor",
+    "passive_sensor",
+    "c2_node",
+    "integration_upgrade",
+    "surface_defence",
+    "counter_uas",
+    "electronic_warfare",
+    "passive_resilience",
+    "sustainment"
+  ],
+  "threatWaves": [
+    {
+      "id": "wave_1",
+      "name": "Opening salvo",
+      "threats": [
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "south_east_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "decoy",
+          "route": [
+            "western_approaches",
+            "central_hub"
+          ],
+          "detectability": 4,
+          "classificationDifficulty": 4,
+          "speedClass": 2,
+          "consequence": 0,
+          "saturationWeight": 2
+        },
+        {
+          "type": "cruise_type",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 5,
+          "saturationWeight": 2
+        }
+      ]
+    },
+    {
+      "id": "wave_2",
+      "name": "Coordinated pressure",
+      "threats": [
+        {
+          "type": "attack_drone",
+          "route": [
+            "north_coast",
+            "northern_energy"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "decoy",
+          "route": [
+            "maritime_gate",
+            "western_approaches"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 5,
+          "speedClass": 2,
+          "consequence": 0,
+          "saturationWeight": 3
+        },
+        {
+          "type": "cruise_type",
+          "route": [
+            "western_approaches",
+            "central_hub"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 5,
+          "saturationWeight": 2
+        },
+        {
+          "type": "unknown",
+          "route": [
+            "north_coast",
+            "northern_energy"
+          ],
+          "detectability": 4,
+          "classificationDifficulty": 5,
+          "speedClass": 2,
+          "consequence": 4,
+          "saturationWeight": 2
+        }
+      ]
+    },
+    {
+      "id": "wave_3",
+      "name": "Endgame surge",
+      "threats": [
+        {
+          "type": "small_uas",
+          "route": [
+            "eastern_corridor",
+            "south_east_hub"
+          ],
+          "detectability": 2,
+          "classificationDifficulty": 1,
+          "speedClass": 1,
+          "consequence": 1,
+          "saturationWeight": 1
+        },
+        {
+          "type": "attack_drone",
+          "route": [
+            "maritime_gate",
+            "central_hub"
+          ],
+          "detectability": 3,
+          "classificationDifficulty": 2,
+          "speedClass": 2,
+          "consequence": 3,
+          "saturationWeight": 2
+        },
+        {
+          "type": "cruise_type",
+          "route": [
+            "north_coast",
+            "northern_energy"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 6,
+          "saturationWeight": 2
+        },
+        {
+          "type": "cruise_type",
+          "route": [
+            "eastern_corridor",
+            "central_hub"
+          ],
+          "detectability": 5,
+          "classificationDifficulty": 3,
+          "speedClass": 3,
+          "consequence": 5,
+          "saturationWeight": 2
+        }
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "ms_total",
+      "label": "Keep total damage under 18",
+      "kind": "total_consequence_below",
+      "value": 18
+    },
+    {
+      "id": "ms_engage",
+      "label": "Reach over 55% engagement success",
+      "kind": "engagement_rate_above",
+      "value": 0.55
+    },
+    {
+      "id": "ms_mun",
+      "label": "Survive all three waves with munitions left",
+      "kind": "munitions_remaining_above",
+      "value": 0.1
+    }
+  ]
+}
